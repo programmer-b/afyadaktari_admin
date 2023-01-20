@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:afyadaktari_admin/core/domain/repository/auth/response/success/doctors_list.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import '../../../../domain/use_case/home/doctors_use_case.dart';
 
 class DoctorsProvider extends ChangeNotifier {
@@ -84,11 +85,43 @@ class DoctorsProvider extends ChangeNotifier {
   setMiddleName(p0) => _middleName = p0;
   setLastName(p0) => _lastName = p0;
   setEmail(p0) => _email = p0;
-  setGender(p0) => _gender = p0;
+  setGender(p0) {
+    _gender = p0;
+    notifyListeners();
+  }
+
   setPhoneNumber(p0) => _phoneNumber = p0;
-  setSpecialty(p0) => _specialty = p0;
-  setDateOfBirth(p0) => _dateOfBirth = p0;
+  setSpecialty(p0) {
+    _specialty = p0;
+    notifyListeners();
+  }
+
+  setDateOfBirth(p0) {
+    _dateOfBirth = p0;
+    notifyListeners();
+  }
+
   setAddress(p0) => _address = p0;
+
+  DateTime _selectedDate = _now;
+  DateTime get selectedDate => _selectedDate;
+
+  void initDates() {
+    _selectedDate = _now;
+    notifyListeners();
+  }
+
+  void confirmDate() {
+    _dateOfBirth = DateFormat('yyyy-MM-dd').format(selectedDate);
+    notifyListeners();
+  }
+
+  void setDate(newDate) {
+    _selectedDate = newDate;
+    _dateOfBirth = DateFormat('yyyy-MM-dd').format(selectedDate);
+
+    notifyListeners();
+  }
 
   Future<void> writeDoctor() async {
     _apS = false;
@@ -123,3 +156,7 @@ class DoctorsProvider extends ChangeNotifier {
     load();
   }
 }
+
+final DateTime _now = DateTime.now();
+final DateFormat formatter = DateFormat('yyyy-MM-dd');
+final String formatted = formatter.format(_now);

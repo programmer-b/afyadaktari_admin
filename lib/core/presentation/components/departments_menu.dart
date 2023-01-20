@@ -31,4 +31,4 @@ class Dpartmentmenu extends StatelessWidget {
   }
 }
 
-enum DepartMenu { view, addSchedule, delete }
+enum DepartMenu { delete }

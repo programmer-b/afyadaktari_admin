@@ -3,6 +3,10 @@ import 'package:afyadaktari_admin/core/data/utils/dart_extensions.dart';
 
 
 class MobileRequest {
-  String? mobile;
-  Map<String, String> toJson() => {keyMobile: mobile.sntnull};
+
+  String _phone = "";
+  String get phone => _phone;
+
+  setPhone(p0) => _phone = p0;
+
 }

@@ -33,7 +33,10 @@ class _DashBoardPageState extends State<DashBoardPage> {
         actions: [
           IconButton(
               onPressed: () => const SettingsPage().launch(context),
-              icon: const Icon(Icons.settings))
+              icon: const Icon(Icons.settings)),
+          IconButton(
+              onPressed: () => RestartAppWidget.init(context),
+              icon: const Icon(Icons.logout))
         ],
       ),
       body: Container(

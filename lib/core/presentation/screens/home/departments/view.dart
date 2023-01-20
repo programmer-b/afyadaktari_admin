@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:afyadaktari_admin/core/data/utils/dart_extensions.dart';
+import 'package:afyadaktari_admin/core/presentation/screens/home/departments/create.dart';
 import 'package:afyadaktari_admin/core/presentation/screens/home/departments/state.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -10,6 +11,7 @@ import '../../../../data/datasources/remote/data_sources.dart';
 import '../../../../data/utils/dimens.dart';
 import '../../../../data/utils/strings/uris.dart';
 import '../../../../data/utils/utils.dart';
+import '../../../components/departments_menu.dart';
 
 class DepartmentsView extends StatefulWidget {
   const DepartmentsView({super.key});
@@ -71,9 +73,48 @@ class _DepartmentsViewState extends State<DepartmentsView> {
                     style: boldTextStyle(color: Colors.black45, size: 21),
                   ),
                 ),
+              if (!providerWatch.departmentsEmpty)
+                Column(
+                  children: [
+                    for (int i = 0; i < provider.departs['data']['count']; i++)
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        child: ListTile(
+                          title: Text(provider
+                                  .departmentsList?.data?.dataModels?[i].name ??
+                              ''),
+                          trailing: Dpartmentmenu(
+                            onSelected: (DepartMenu value) {
+                              switch (value) {
+                                case DepartMenu.delete:
+                                  _deleteDepartment(provider.departmentsList
+                                          ?.data?.dataModels?[i].id ??
+                                      -1);
+                                  break;
+                              }
+                            },
+                          ),
+                          tileColor: Colors.grey[200],
+                        ),
+                      )
+                  ],
+                )
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton.extended(
+            onPressed: () async => await const CreateDepartment()
+                .launch(context,
+                    pageRouteAnimation: PageRouteAnimation.SlideBottomTop)
+                .then((value) => _refreshIndicatorKey.currentState!.show()),
+            icon: const Icon(
+              Icons.add,
+              color: white,
+            ),
+            label: Text(
+              'Create',
+              style: primaryTextStyle(color: white),
+            )),
       ),
     );
   }

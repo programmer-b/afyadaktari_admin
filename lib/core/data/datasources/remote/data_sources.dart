@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:afyadaktari_admin/core/data/utils/strings/common.dart';
 import 'package:afyadaktari_admin/core/data/utils/utils.dart';
 import 'package:afyadaktari_admin/core/presentation/screens/auth/login/login_provider.dart';
+import 'package:afyadaktari_admin/core/presentation/screens/auth/reset_password/state.dart';
+import 'package:afyadaktari_admin/core/presentation/screens/auth/reset_password/view.dart';
+import 'package:afyadaktari_admin/core/presentation/screens/auth/verify_phone/state.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,7 +35,7 @@ abstract class DataSources {
 class DataSourcesImpl implements DataSources {
   DataSourcesImpl();
 
-  String? get token => LoginProvider.credentials?.data?.token;
+  String? get token => LoginProvider.credentials?.data?.token ?? VerifyPhoneProvider.tempToken;
 
   late final Map<String, String> headers = {
     'Accept': 'application/json',

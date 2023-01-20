@@ -9,7 +9,12 @@ class TextFieldWidget extends StatelessWidget {
       this.onChanged,
       this.onSaved,
       this.hintText,
-      this.prefixIcon, this.suffixIcon,this.obscureText = false, this.keyboardType})
+      this.prefixIcon,
+      this.suffixIcon,
+      this.obscureText = false,
+      this.keyboardType,
+      this.readOnly = false,
+      this.onTap})
       : super(key: key);
 
   final TextInputAction? textInputAction;
@@ -22,10 +27,14 @@ class TextFieldWidget extends StatelessWidget {
   final Widget? suffixIcon;
   final bool obscureText;
   final TextInputType? keyboardType;
+  final bool readOnly;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: onTap,
+      readOnly: readOnly,
       keyboardType: keyboardType,
       textInputAction: textInputAction ?? TextInputAction.next,
       obscureText: obscureText,
@@ -33,7 +42,8 @@ class TextFieldWidget extends StatelessWidget {
       validator: validator,
       onChanged: onChanged,
       onSaved: onSaved,
-      decoration: InputDecoration(hintText: hintText, prefixIcon: prefixIcon, suffixIcon: suffixIcon),
+      decoration: InputDecoration(
+          hintText: hintText, prefixIcon: prefixIcon, suffixIcon: suffixIcon),
     );
   }
 }

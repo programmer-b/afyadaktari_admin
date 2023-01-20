@@ -67,7 +67,7 @@ class _DoctorsViewState extends State<DoctorsView> with NavigatorObserver {
               if (providerWatch.doctorsCount == 0)
                 Center(
                   child: Text(
-                    'No Doctors Available.',
+                    'No Doctors on record.',
                     style: boldTextStyle(color: Colors.black45, size: 21),
                   ),
                 ),

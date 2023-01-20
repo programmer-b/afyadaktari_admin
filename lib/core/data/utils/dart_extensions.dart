@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:afyadaktari_admin/core/domain/repository/auth/response/success/doctors_list.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 extension StringNotNull on String? {
@@ -43,5 +44,10 @@ extension KeysAndValues on Map {
 extension StringExtension on String {
   String capitalize() {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+}
+extension SnapshotReady on AsyncSnapshot {
+  bool get ready {
+    return connectionState == ConnectionState.done;
   }
 }
