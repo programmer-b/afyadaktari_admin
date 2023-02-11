@@ -24,6 +24,7 @@ class DoctorsProvider extends ChangeNotifier {
     _doctorsCount = -1;
     load();
     _docs = await doctors;
+    log('$_docs');
     _doctorsEmpty = _docs['data']['count'] == 0;
     _doctorsCount = _docs['data']['count'];
     log('COUNT: ${_docs['data']['count']}');

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:afyadaktari_admin/core/data/utils/dart_extensions.dart';
 import 'package:afyadaktari_admin/core/presentation/screens/home/departments/create.dart';
+import 'package:afyadaktari_admin/core/presentation/screens/home/departments/edit.dart';
 import 'package:afyadaktari_admin/core/presentation/screens/home/departments/state.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -56,7 +57,7 @@ class _DepartmentsViewState extends State<DepartmentsView> {
             IconButton(onPressed: () {}, icon: const Icon(Icons.search))
           ],
           title: Text(
-            'Departments List',
+            'Speciality List',
             style: primaryTextStyle(color: blackColor),
           ),
         ),
@@ -69,7 +70,7 @@ class _DepartmentsViewState extends State<DepartmentsView> {
               if (providerWatch.departmentsCount == 0)
                 Center(
                   child: Text(
-                    'No departments on record.',
+                    'No Specialities on record.',
                     style: boldTextStyle(color: Colors.black45, size: 21),
                   ),
                 ),
@@ -84,13 +85,25 @@ class _DepartmentsViewState extends State<DepartmentsView> {
                                   .departmentsList?.data?.dataModels?[i].name ??
                               ''),
                           trailing: Dpartmentmenu(
-                            onSelected: (DepartMenu value) {
+                            onSelected: (DepartMenu value) async {
                               switch (value) {
                                 case DepartMenu.delete:
                                   _deleteDepartment(provider.departmentsList
                                           ?.data?.dataModels?[i].id ??
                                       -1);
                                   break;
+                                case DepartMenu.edit:
+                                  await EditSpeciality(
+                                          id: provider.departmentsList?.data
+                                                  ?.dataModels?[i].id ??
+                                              -1,
+                                          name: provider.departmentsList?.data
+                                                  ?.dataModels?[i].name ??
+                                              '')
+                                      .launch(context)
+                                      .then((value) => _refreshIndicatorKey
+                                          .currentState!
+                                          .show());
                               }
                             },
                           ),

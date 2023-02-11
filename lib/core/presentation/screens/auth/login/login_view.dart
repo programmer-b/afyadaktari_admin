@@ -59,94 +59,99 @@ class _LoginPageState extends State<LoginPage> {
 
     request.rememberMe = providerWatch.rememberMe;
 
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 400),
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-            title: Text(
-          'Login page',
-          style: boldTextStyle(),
-        )),
-        body: SingleChildScrollView(
-          child: Form(
-            key: loginFormKey,
-            child: Column(
-              children: [
-                const Divider(),
-                const Icon(
-                  Icons.admin_panel_settings,
-                  size: 100,
-                ),
-                32.height,
-                TextFieldWidget(
-                  validator: (p0) => provider.usnErr,
-                  hintText: usernameOrPhoneText,
-                  controller: username,
-                  onChanged: (p0) => provider.stU(p0),
-                  prefixIcon: const Icon(Icons.account_circle),
-                ),
-                16.height,
-                TextFieldWidget(
-                  validator: (p0) => provider.passErr,
-                  textInputAction: TextInputAction.done,
-                  hintText: passwordText,
-                  controller: password,
-                  onChanged: (p0) => provider.stP(p0),
-                  obscureText: !providerWatch.passwordVisible,
-                  prefixIcon: const Icon(Icons.password),
-                  suffixIcon: IconButton(
-                    icon: Icon(providerWatch.passwordIcon),
-                    onPressed: () => provider.togglePasswordVisibility(),
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+          title: Text(
+        'Login page',
+        style: boldTextStyle(),
+      )),
+      body: SingleChildScrollView(
+        child: Form(
+          key: loginFormKey,
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            Container(
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: Column(
+                children: [
+                  const Divider(),
+                  const Icon(
+                    Icons.admin_panel_settings,
+                    size: 100,
                   ),
-                ),
-                12.height,
-                Container(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      child: Text(
-                        'Forgot Password?',
-                        style: primaryTextStyle(color: Colors.blue),
-                      ),
-                      onPressed: () => const VerifyPhoneView().launch(context),
-                    )),
-                8.height,
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      CheckBoxWidget(
-                        value: providerWatch.rememberMe,
-                        onChanged: (_) => provider.setRememberMe(),
-                      ),
-                      8.width,
-                      Text(
-                        rememberMeText,
-                        style: primaryTextStyle(),
-                      )
-                    ],
+                  32.height,
+                  TextFieldWidget(
+                    validator: (p0) => provider.usnErr,
+                    hintText: usernameOrPhoneText,
+                    controller: username,
+                    onChanged: (p0) => provider.stU(p0),
+                    prefixIcon: const Icon(Icons.account_circle),
                   ),
-                ),
-                32.height,
-                RoundedLoadingButton(
-                  controller: _btnController,
-                  onPressed: () async {
-                    await provider.login;
-                    if (provider.success) {
-                      if (mounted) {
-                        const DashBoardPage().launch(context, isNewTask: true);
+                  16.height,
+                  TextFieldWidget(
+                    validator: (p0) => provider.passErr,
+                    textInputAction: TextInputAction.done,
+                    hintText: passwordText,
+                    controller: password,
+                    onChanged: (p0) => provider.stP(p0),
+                    obscureText: !providerWatch.passwordVisible,
+                    prefixIcon: const Icon(Icons.password),
+                    suffixIcon: IconButton(
+                      icon: Icon(providerWatch.passwordIcon),
+                      onPressed: () => provider.togglePasswordVisibility(),
+                    ),
+                  ),
+                  12.height,
+                  Container(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        child: Text(
+                          'Forgot Password?',
+                          style: primaryTextStyle(color: Colors.blue),
+                        ),
+                        onPressed: () =>
+                            const VerifyPhoneView().launch(context),
+                      )),
+                  8.height,
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: [
+                        CheckBoxWidget(
+                          value: providerWatch.rememberMe,
+                          onChanged: (_) => provider.setRememberMe(),
+                        ),
+                        8.width,
+                        Text(
+                          rememberMeText,
+                          style: primaryTextStyle(),
+                        )
+                      ],
+                    ),
+                  ),
+                  32.height,
+                  RoundedLoadingButton(
+                    controller: _btnController,
+                    onPressed: () async {
+                      await provider.login;
+                      if (provider.success) {
+                        if (mounted) {
+                          const DashBoardPage()
+                              .launch(context, isNewTask: true);
+                        }
+                      } else {
+                        _btnController.stop();
+                        loginFormKey.currentState!.validate();
                       }
-                    } else {
-                      _btnController.stop();
-                      loginFormKey.currentState!.validate();
-                    }
-                  },
-                  child: const Text(loginText,
-                      style: TextStyle(color: Colors.white)),
-                )
-              ],
-            ).center().paddingAll(8),
-          ),
+                    },
+                    child: const Text(loginText,
+                        style: TextStyle(color: Colors.white)),
+                  )
+                ],
+              ),
+            )
+          ]).center().paddingAll(8),
         ),
       ),
     );

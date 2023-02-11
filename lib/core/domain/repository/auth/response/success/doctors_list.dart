@@ -89,14 +89,14 @@ class DataModels {
 
   DataModels.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    idNumber = json['id_number'];
-    staffNumber = json['staff_number'];
-    firstName = json['first_name'];
-    middleName = json['middle_name'];
-    lastName = json['last_name'];
+    idNumber = json['id number'];
+    staffNumber = json['staff number'];
+    firstName = json['first name'];
+    middleName = json['middle name'];
+    lastName = json['last name'];
     email = json['email'];
     gender = json['gender'];
-    phoneNumber = json['phone_number'];
+    phoneNumber = json['phone number'];
     speciality = json['speciality'];
     dateOfBirth = json['date_of_birth'];
     image = json['image'];

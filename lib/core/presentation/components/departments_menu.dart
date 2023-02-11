@@ -12,6 +12,21 @@ class Dpartmentmenu extends StatelessWidget {
       onSelected: onSelected,
       itemBuilder: (context) => <PopupMenuEntry<DepartMenu>>[
         PopupMenuItem<DepartMenu>(
+            value: DepartMenu.edit,
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.edit_note,
+                  color: greenColor,
+                ),
+                6.width,
+                Text(
+                  'Edit',
+                  style: primaryTextStyle(),
+                )
+              ],
+            )),
+        PopupMenuItem<DepartMenu>(
             value: DepartMenu.delete,
             child: Row(
               children: [
@@ -25,10 +40,10 @@ class Dpartmentmenu extends StatelessWidget {
                   style: primaryTextStyle(),
                 )
               ],
-            ))
+            )),
       ],
     );
   }
 }
 
-enum DepartMenu { delete }
+enum DepartMenu { delete, edit }

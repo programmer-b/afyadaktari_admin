@@ -16,6 +16,8 @@ extension StringExtensions on String {
 
     return '$s0******$s2';
   }
+
+  Uri get uri => Uri.parse(this);
 }
 
 extension RespEsp on http.Response {
@@ -46,6 +48,7 @@ extension StringExtension on String {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 }
+
 extension SnapshotReady on AsyncSnapshot {
   bool get ready {
     return connectionState == ConnectionState.done;

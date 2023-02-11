@@ -35,7 +35,7 @@ class _CreateDepartmentState extends State<CreateDepartment> {
       appBar: AppBar(
           elevation: 1.0,
           title: Text(
-            'Create a Department',
+            'Create a Speciality',
             style: primaryTextStyle(color: blackColor),
           )),
       body: Form(
@@ -44,7 +44,7 @@ class _CreateDepartmentState extends State<CreateDepartment> {
             padding: screenpadding,
             children: [
               TextFieldWidget(
-                hintText: 'Name of department',
+                hintText: 'Name',
                 textInputAction: TextInputAction.done,
                 onChanged: (p0) => writer.setName(p0),
                 keyboardType: TextInputType.text,

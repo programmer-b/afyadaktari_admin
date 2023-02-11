@@ -1,9 +1,14 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:afyadaktari_admin/core/data/datasources/remote/data_sources.dart';
+import 'package:afyadaktari_admin/core/data/utils/dart_extensions.dart';
+import 'package:afyadaktari_admin/core/data/utils/strings/uris.dart';
+import 'package:afyadaktari_admin/core/data/utils/utils.dart';
 import 'package:afyadaktari_admin/core/domain/repository/auth/response/success/departments_list.dart';
 import 'package:afyadaktari_admin/core/domain/use_case/home/doctors_use_case.dart';
 import 'package:flutter/material.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class DepartmentsProvider extends ChangeNotifier {
   Map<String, dynamic> _departs = {};
@@ -76,5 +81,40 @@ class DepartmentsProvider extends ChangeNotifier {
 
     // log(jsonEncode(res.toString()));
     load();
+  }
+
+  String _departName = '';
+  String get departName => _departName;
+
+  String _departNameError = '';
+  String get departNameError => _departNameError;
+
+  bool _departUpdateSuccess = false;
+  bool get departUpdateSuccess => _departUpdateSuccess;
+
+  setDepartname(p0) => _departName = p0;
+
+  Future<void> updateDepart(int id) async {
+    _departNameError = '';
+    _departUpdateSuccess = false;
+    final body = {"name": departName};
+    final url = '$updateDepartmentUrl$id';
+
+    final DataSourcesImpl impl = DataSourcesImpl();
+
+    final res = await impl.put(url: url, body: body);
+
+    if (res.ok) {
+      _departUpdateSuccess = true;
+      toastS(
+        res.decode['message'],
+      );
+    }
+    else if (res.vlderr) {
+      _departNameError = res.decode['errors']['name'].join();
+    } else {
+      throw (res.body);
+    }
+    notifyListeners();
   }
 }

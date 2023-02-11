@@ -7,21 +7,21 @@ import 'package:nb_utils/nb_utils.dart';
 import '../../../../data/utils/strings/common.dart';
 import '../../../components/application_button.dart';
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 1.0,
         title: Text(
-          'Settings Page',
+          'Profile',
           style: primaryTextStyle(color: blackColor),
         ),
       ),
